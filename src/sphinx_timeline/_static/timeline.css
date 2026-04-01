@@ -117,6 +117,7 @@ html[data-theme="dark"] {
 }
 
 .sphinx-timeline__dot {
+    position: relative;
     width: var(--tl-dot-size);
     height: var(--tl-dot-size);
     border-radius: 50%;
@@ -124,12 +125,51 @@ html[data-theme="dark"] {
     margin-top: 0.25rem;
 }
 
+/* Glow ring — pseudo-element that pulses outward */
+.sphinx-timeline__dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    animation: tl-pulse 2.4s ease-out infinite;
+}
+
 .sphinx-timeline--released .sphinx-timeline__dot {
+    background-color: var(--tl-color-released);
+}
+
+.sphinx-timeline--released .sphinx-timeline__dot::after {
     background-color: var(--tl-color-released);
 }
 
 .sphinx-timeline--development .sphinx-timeline__dot {
     background-color: var(--tl-color-development);
+}
+
+.sphinx-timeline--development .sphinx-timeline__dot::after {
+    background-color: var(--tl-color-development);
+}
+
+@keyframes tl-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    60% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .sphinx-timeline__dot::after {
+        animation: none;
+    }
 }
 
 .sphinx-timeline__line {
