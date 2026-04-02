@@ -5,89 +5,88 @@ Changelog
    :status: development
 
    .. timeline-item::
-      :tags: need for speed
+      :tags: lorem, performance
 
-      **Project Theseus: removing BuildKit**
+      **Lorem ipsum dolor sit amet**
 
-      The largest engine change since the project began. Replacing BuildKit
-      with a native solver, unlocking robust remote caching, cache
-      observability, and more flexible module execution.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris.
 
    .. timeline-item::
       :tags: cloud
 
-      **Cloud Engines**
+      **Consectetur adipiscing elit**
 
-      Fully managed engines with auto-scaling and distributed caching.
-      Run ``dagger --cloud`` and your pipelines execute in the cloud —
-      with your local context preserved seamlessly. In early access.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident. In early access.
 
    .. timeline-item::
 
-      **Modules v2**
+      **Sed do eiusmod tempor**
 
-      A major upgrade to how modules interact with your project. Modules
-      get a typed API to your workspace, replacing rigid sandbox constraints
-      with dynamic context — less complexity for developers, more control
-      for platform engineers.
+      Ut labore et dolore magna aliqua enim ad minim veniam. Quis nostrud
+      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 .. timeline::
-   :version: v0.20.2
+   :version: v1.2.0
    :date: Mar 19, 2026
    :status: released
 
    .. timeline-item::
-      :tags: need for speed
+      :tags: lorem, performance
 
-      **Dang: a native language**
+      **Duis aute irure dolor**
 
-      A scripting language designed specifically for the engine, now with a
-      native runtime built in. Loads types directly from the engine at
-      runtime — no codegen, near-instant startup, and concise syntax.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+   .. timeline-item::
+      :tags: cloud
+
+      **Excepteur sint occaecat**
+
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+      ut aliquip ex ea commodo consequat. Run ``lorem --ipsum`` and your
+      pipeline executes seamlessly.
 
    .. timeline-item::
 
-      **New terminal UI**
+      **Quis nostrud exercitation**
 
-      A ground-up rebuild of the interactive TUI. Output uses your
-      terminal's native scrollback — scroll freely, click links, select
-      text — no more fixed viewport. Also adds inline search with ``/``.
-
-   .. timeline-item::
-
-      **Vault OIDC authentication**
-
-      The Vault secret provider now supports OIDC login. If no token or
-      environment credentials are set, your browser opens for OIDC
-      authentication and caches the token with automatic expiry.
-
-   .. timeline-item::
-      :tags: cloud, performance
-
-      **Suppress update notifications in CI**
-
-      Set ``DAGGER_NO_UPDATE_CHECK=1`` to skip the CLI version check
-      entirely — no network request, no stderr noise. Useful in CI
-      environments where CLI versions are pinned.
-
-.. timeline::
-   :version: v0.19.0
-   :date: Feb 10, 2026
-   :status: released
+      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+      sequi nesciunt.
 
    .. timeline-item::
       :tags: security
 
-      **New secrets provider: GCP Secret Manager**
+      **Neque porro quisquam**
 
-      Google Cloud Secret Manager is now a native secret provider. Use
-      ``gcp://secret-name`` with Application Default Credentials, service
-      account keys, or Workload Identity on GKE.
+      Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+      consectetur, adipisci velit. Use ``lorem-ipsum://secret-name`` with
+      default credentials or service account keys.
+
+.. timeline::
+   :version: v1.1.0
+   :date: Feb 10, 2026
+   :status: released
+
+   .. timeline-item::
+      :tags: stability
+
+      **Nemo enim ipsam voluptatem**
+
+      At vero eos et accusamus et iusto odio dignissimos ducimus qui
+      blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+      et quas molestias excepturi sint.
 
    .. timeline-item::
 
-      **Stability fixes**
+      **Temporibus autem quibusdam**
 
-      Running inside a container with a mounted git worktree no longer
-      crashes. Module dependencies pinned by branch or tag name instead of
-      commit SHA now resolve correctly.
+      Temporibus autem quibusdam et aut officiis debitis aut rerum
+      necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+      molestiae non recusandae.

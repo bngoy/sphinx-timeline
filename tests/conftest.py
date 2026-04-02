@@ -1,4 +1,4 @@
-"""Pytest fixtures for sphinx-timeline tests."""
+"""Pytest fixtures for sphinx-changelog-timeline tests."""
 
 import shutil
 
@@ -15,7 +15,7 @@ def build_html(tmp_path):
 
     # conf.py
     (src / "conf.py").write_text(
-        'extensions = ["sphinx_timeline"]\nexclude_patterns = ["_build"]\n'
+        'extensions = ["sphinx_changelog_timeline"]\nexclude_patterns = ["_build"]\n'
     )
 
     # index.rst with a simple timeline

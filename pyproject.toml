@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sphinx-timeline"
+name = "sphinx-changelog-timeline"
 dynamic = ["version"]
 description = "A Sphinx extension to build changelog-style timelines"
 readme = "README.md"
@@ -46,7 +46,7 @@ version = {file = "VERSION"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-sphinx_timeline = ["_static/*.css"]
+sphinx_changelog_timeline = ["_static/*.css"]
 
 # ---------------------------------------------------------------------------
 # Ruff — linter + formatter
@@ -63,7 +63,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["sphinx_timeline"]
+known-first-party = ["sphinx_changelog_timeline"]
 
 # ---------------------------------------------------------------------------
 # Pytest

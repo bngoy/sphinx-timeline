@@ -1,4 +1,4 @@
-"""sphinx-timeline — A Sphinx extension to build changelog-style timelines."""
+"""sphinx-changelog-timeline — A Sphinx extension to build changelog-style timelines."""
 
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _get_version
@@ -19,7 +19,7 @@ from .nodes import (
 )
 
 try:
-    __version__ = _get_version("sphinx-timeline")
+    __version__ = _get_version("sphinx-changelog-timeline")
 except PackageNotFoundError:
     __version__ = "unknown"
 
