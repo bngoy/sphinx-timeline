@@ -4,11 +4,12 @@ on:
   pull_request:
     types: [closed]
     branches: [master, main]
+  workflow_dispatch:  # allow manual triggering from the Actions UI
 
 jobs:
   tag:
     name: Create version tag
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
