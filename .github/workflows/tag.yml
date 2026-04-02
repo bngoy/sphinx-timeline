@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write  # required to dispatch release.yml
 
     steps:
       - uses: actions/checkout@v4
@@ -39,6 +40,18 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag "v${{ steps.version.outputs.version }}"
           git push origin "v${{ steps.version.outputs.version }}"
+
+      - name: Dispatch release workflow
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'release.yml',
+              ref: 'refs/tags/v${{ steps.version.outputs.version }}'
+            })
 
       - name: Skip (tag already exists)
         if: steps.check_tag.outputs.exists == 'true'

@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:  # triggered by tag.yml, or run manually
 
 jobs:
   build-and-publish:
@@ -15,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}  # ensure the tag ref is checked out
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
