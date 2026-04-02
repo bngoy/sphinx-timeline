@@ -1,7 +1,6 @@
 """Pytest fixtures for sphinx-timeline tests."""
 
 import shutil
-from pathlib import Path
 
 import pytest
 from sphinx.application import Sphinx
@@ -16,8 +15,7 @@ def build_html(tmp_path):
 
     # conf.py
     (src / "conf.py").write_text(
-        'extensions = ["sphinx_timeline"]\n'
-        'exclude_patterns = ["_build"]\n'
+        'extensions = ["sphinx_timeline"]\nexclude_patterns = ["_build"]\n'
     )
 
     # index.rst with a simple timeline

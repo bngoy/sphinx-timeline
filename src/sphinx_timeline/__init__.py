@@ -1,22 +1,27 @@
 """sphinx-timeline — A Sphinx extension to build changelog-style timelines."""
 
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _get_version
 from pathlib import Path
 
 from .directives import TimelineDirective, TimelineItemDirective
 from .nodes import (
+    depart_timeline_html,
+    depart_timeline_item_html,
+    depart_timeline_item_latex,
+    depart_timeline_latex,
     timeline,
     timeline_item,
     visit_timeline_html,
-    depart_timeline_html,
     visit_timeline_item_html,
-    depart_timeline_item_html,
-    visit_timeline_latex,
-    depart_timeline_latex,
     visit_timeline_item_latex,
-    depart_timeline_item_latex,
+    visit_timeline_latex,
 )
 
-__version__ = "0.1.0"
+try:
+    __version__ = _get_version("sphinx-timeline")
+except PackageNotFoundError:
+    __version__ = "unknown"
 
 _STATIC_DIR = Path(__file__).parent / "_static"
 

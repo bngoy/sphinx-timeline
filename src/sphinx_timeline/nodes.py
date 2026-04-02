@@ -15,14 +15,13 @@ class timeline_item(nodes.General, nodes.Element):
 # HTML visitors
 # ---------------------------------------------------------------------------
 
+
 def visit_timeline_html(self, node):
     status = node.get("status", "released")
     version = node.get("version", "")
     date = node.get("date", "")
 
-    self.body.append(
-        f'<div class="sphinx-timeline sphinx-timeline--{status}">'
-    )
+    self.body.append(f'<div class="sphinx-timeline sphinx-timeline--{status}">')
 
     # Sidebar: marker (label + dot) + vertical line
     self.body.append('<div class="sphinx-timeline__sidebar">')
@@ -31,18 +30,12 @@ def visit_timeline_html(self, node):
     # Label
     self.body.append('<div class="sphinx-timeline__label">')
     if status == "development":
-        self.body.append(
-            '<span class="sphinx-timeline__version">In development</span>'
-        )
+        self.body.append('<span class="sphinx-timeline__version">In development</span>')
     else:
         if version:
-            self.body.append(
-                f'<span class="sphinx-timeline__version">{version}</span>'
-            )
+            self.body.append(f'<span class="sphinx-timeline__version">{version}</span>')
         if date:
-            self.body.append(
-                f'<span class="sphinx-timeline__date">{date}</span>'
-            )
+            self.body.append(f'<span class="sphinx-timeline__date">{date}</span>')
     self.body.append("</div>")  # end label
 
     # Dot
@@ -72,9 +65,7 @@ def visit_timeline_item_html(self, node):
     if tags:
         self.body.append('<div class="sphinx-timeline__tags">')
         for tag in tags:
-            self.body.append(
-                f'<span class="sphinx-timeline__tag">{tag}</span>'
-            )
+            self.body.append(f'<span class="sphinx-timeline__tag">{tag}</span>')
         self.body.append("</div>")
 
 
@@ -85,6 +76,7 @@ def depart_timeline_item_html(self, node):
 # ---------------------------------------------------------------------------
 # LaTeX visitors (simple fallback)
 # ---------------------------------------------------------------------------
+
 
 def visit_timeline_latex(self, node):
     status = node.get("status", "released")

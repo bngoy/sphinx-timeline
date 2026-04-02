@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "sphinx-timeline"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A Sphinx extension to build changelog-style timelines"
 readme = "README.md"
 license = "Apache-2.0"
@@ -26,10 +26,46 @@ dependencies = [
     "sphinx>=5.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/bngoy/sphinx-timeline"
+Source   = "https://github.com/bngoy/sphinx-timeline"
+Issues   = "https://github.com/bngoy/sphinx-timeline/issues"
+
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "ruff",
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/sphinx_timeline"]
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sphinx_timeline = ["_static/*.css"]
+
+# ---------------------------------------------------------------------------
+# Ruff — linter + formatter
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+src = ["src"]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4"]
+ignore = [
+    "E501",   # line too long — handled by formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sphinx_timeline"]
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

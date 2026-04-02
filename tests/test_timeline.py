@@ -1,7 +1,5 @@
 """Tests for the sphinx-timeline extension."""
 
-from pathlib import Path
-
 
 def test_build_succeeds(build_html):
     """The Sphinx build should complete without warnings."""

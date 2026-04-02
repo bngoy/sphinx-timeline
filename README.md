@@ -2,14 +2,20 @@
 
 A Sphinx extension for building changelog-style timelines inspired by [Dagger's changelog](https://dagger.io/changelog).
 
+[![CI](https://github.com/bngoy/sphinx-timeline/actions/workflows/ci.yml/badge.svg)](https://github.com/bngoy/sphinx-timeline/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/sphinx-timeline)](https://pypi.org/project/sphinx-timeline/)
+[![Python](https://img.shields.io/pypi/pyversions/sphinx-timeline)](https://pypi.org/project/sphinx-timeline/)
+[![License](https://img.shields.io/pypi/l/sphinx-timeline)](LICENSE)
+
 ## Features
 
-- Two directives: `timeline` (a version section) and `timeline-item` (a card)
-- Two statuses: `released` (white card, solid border, green dot) and `development` (yellow card, dashed border, amber dot)
-- Optional tag pills per item
-- CSS-only — no JavaScript
+- `timeline` directive — a version section with sidebar label and status dot
+- `timeline-item` directive — a card with optional tag pills
+- Two statuses: **released** (white card, solid border, green pulsing dot) and **development** (yellow card, dashed border, amber pulsing dot)
+- CSS-only — no JavaScript required
 - Theme-compatible via CSS custom properties (`--tl-*`), with automatic fallback to [pydata-sphinx-theme](https://pydata-sphinx-theme.readthedocs.io) (`--pst-*`) variables
 - Built-in light and dark mode support
+- `prefers-reduced-motion` aware — animation respects accessibility settings
 
 ## Installation
 
@@ -19,13 +25,13 @@ pip install sphinx-timeline
 
 ## Quick start
 
-Add the extension to your `conf.py`:
+**1.** Add the extension to your `conf.py`:
 
 ```python
 extensions = ["sphinx_timeline"]
 ```
 
-Then use the directives in any `.rst` file:
+**2.** Use the directives in any `.rst` file:
 
 ```rst
 .. timeline::
@@ -49,6 +55,7 @@ Then use the directives in any `.rst` file:
       **Cloud Engines**
 
       Fully managed engines with auto-scaling and distributed caching.
+      Run ``dagger --cloud`` and your pipelines execute in the cloud.
 
    .. timeline-item::
 
@@ -57,80 +64,133 @@ Then use the directives in any `.rst` file:
       Running inside a container with a mounted git worktree no longer crashes.
 ```
 
-## Directives
+**3.** Build:
 
-### `.. timeline::`
+```bash
+sphinx-build docs public
+```
 
-Creates a timeline section with a sidebar label and a vertical dot marker.
+## Directive reference
 
-| Option | Values | Default | Description |
-|--------|--------|---------|-------------|
-| `:status:` | `released`, `development` | `released` | Controls the card style and dot color |
-| `:version:` | any string | — | Version label shown in the sidebar (e.g. `v1.2.0`) |
-| `:date:` | any string | — | Date shown below the version (e.g. `Mar 19, 2026`) |
+### `.. timeline::` — version section
 
-When `:status: development` is set, the sidebar shows **"In development"** regardless of `:version:` and `:date:`.
+Creates a timeline entry with a sidebar label and a coloured pulsing dot.
 
-### `.. timeline-item::`
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `:status:` | `released` \| `development` | `released` | Card style and dot colour |
+| `:version:` | string | — | Version label in the sidebar (e.g. `v1.2.0`) |
+| `:date:` | string | — | Date below the version (e.g. `Mar 19, 2026`) |
 
-Creates a card inside a `timeline` section. Accepts any RST content.
+> When `:status: development` is used, the sidebar shows **"In development"** regardless of `:version:` and `:date:`.
 
-| Option | Values | Default | Description |
-|--------|--------|---------|-------------|
-| `:tags:` | comma-separated string | — | Renders pill badges above the card content (e.g. `:tags: cloud, performance`) |
+### `.. timeline-item::` — card
 
-## Customizing colors
+Creates a card inside a `timeline` section. Accepts any RST content (paragraphs, code blocks, lists, links, etc.).
 
-The extension uses `--tl-*` CSS custom properties. Override them in your theme's custom CSS to match your brand:
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `:tags:` | comma-separated string | — | Renders pill badges above the content (e.g. `:tags: cloud, performance`) |
+
+## Customizing colours
+
+Override `--tl-*` CSS variables in your theme's custom stylesheet:
 
 ```css
 :root {
-    --tl-color-released:    #22c55e;   /* green dot — released sections */
-    --tl-color-development: #f59e0b;   /* amber dot — in-development sections */
-    --tl-color-surface-dev: #fffbeb;   /* card background for development items */
-    --tl-color-border-dev:  #fbbf24;   /* dashed border for development items */
-    --tl-border-radius:     0.75rem;
-    --tl-sidebar-width:     140px;
+    --tl-color-released:    #22c55e;   /* green dot — released sections     */
+    --tl-color-development: #f59e0b;   /* amber dot — development sections  */
+    --tl-color-surface-dev: #fffbeb;   /* card background — development     */
+    --tl-color-border-dev:  #fbbf24;   /* dashed border — development       */
+    --tl-border-radius:     0.75rem;   /* card corner radius                */
+    --tl-sidebar-width:     140px;     /* sidebar column width              */
 }
 ```
 
-All variables fall back to `--pst-*` values when [pydata-sphinx-theme](https://pydata-sphinx-theme.readthedocs.io) or [sphinx-book-theme](https://sphinx-book-theme.readthedocs.io) is active.
+Apply in `conf.py`:
 
-### Full variable reference
+```python
+html_static_path = ["_static"]
+html_css_files   = ["custom.css"]
+```
 
-| Variable | Fallback | Description |
-|----------|----------|-------------|
-| `--tl-color-released` | `--pst-color-success` / `#22c55e` | Released dot color |
-| `--tl-color-development` | `--pst-color-warning` / `#f59e0b` | Development dot color |
-| `--tl-color-text` | `--pst-color-text-base` / `#1a1a1a` | Primary text |
-| `--tl-color-text-muted` | `--pst-color-text-muted` / `#6b7280` | Date and muted text |
-| `--tl-color-border` | `--pst-color-border` / `#e5e7eb` | Card and line borders |
-| `--tl-color-surface` | `--pst-color-surface` / `#ffffff` | Released card background |
-| `--tl-color-surface-dev` | — / `#fffbeb` | Development card background |
-| `--tl-color-border-dev` | — / `#fbbf24` | Development card dashed border |
-| `--tl-color-tag-bg` | `--pst-color-on-background` / `#f3f4f6` | Tag pill background |
-| `--tl-color-tag-text` | `--pst-color-text-base` / `#374151` | Tag pill text |
-| `--tl-color-tag-border` | `--pst-color-border` / `#d1d5db` | Tag pill border |
-| `--tl-border-radius` | — / `0.75rem` | Card corner radius |
-| `--tl-sidebar-width` | — / `140px` | Width of the sidebar column |
+### Full CSS variable reference
 
-## Development
+| Variable | Fallback chain | Description |
+|----------|---------------|-------------|
+| `--tl-color-released` | `--pst-color-success` → `#22c55e` | Released status dot |
+| `--tl-color-development` | `--pst-color-warning` → `#f59e0b` | Development status dot |
+| `--tl-color-text` | `--pst-color-text-base` → `#1a1a1a` | Primary text |
+| `--tl-color-text-muted` | `--pst-color-text-muted` → `#6b7280` | Date / muted text |
+| `--tl-color-border` | `--pst-color-border` → `#e5e7eb` | Card and line borders |
+| `--tl-color-surface` | `--pst-color-surface` → `#ffffff` | Released card background |
+| `--tl-color-surface-dev` | `#fffbeb` | Development card background |
+| `--tl-color-border-dev` | `#fbbf24` | Development dashed border |
+| `--tl-color-tag-bg` | `--pst-color-on-background` → `#f3f4f6` | Tag pill background |
+| `--tl-color-tag-text` | `--pst-color-text-base` → `#374151` | Tag pill text |
+| `--tl-color-tag-border` | `--pst-color-border` → `#d1d5db` | Tag pill border |
+| `--tl-border-radius` | `0.75rem` | Card corner radius |
+| `--tl-sidebar-width` | `140px` | Sidebar column width |
+| `--tl-dot-size` | `12px` | Status dot diameter |
 
-**Prerequisites:** Python 3.9+, [Pipenv](https://pipenv.pypa.io)
+## Project structure
+
+```
+sphinx-timeline/
+├── src/
+│   └── sphinx_timeline/
+│       ├── __init__.py       # Extension setup()
+│       ├── directives.py     # TimelineDirective, TimelineItemDirective
+│       ├── nodes.py          # Docutils nodes + HTML/LaTeX visitors
+│       └── _static/
+│           └── timeline.css  # All styles (variables, layout, animation)
+├── docs/                     # Example Sphinx project
+├── tests/                    # Pytest test suite
+├── .github/workflows/        # CI, auto-tag, and PyPI release
+├── VERSION                   # Single source of truth for the version
+└── pyproject.toml
+```
+
+## Development setup
+
+**Prerequisites:** Python ≥ 3.9, [Pipenv](https://pipenv.pypa.io) or [uv](https://docs.astral.sh/uv/).
+
+### With Pipenv
 
 ```bash
 git clone https://github.com/bngoy/sphinx-timeline.git
 cd sphinx-timeline
-
-# Install all dependencies (extension + dev tools + test themes)
 pipenv install --dev
-
-# Run tests
 pipenv run python -m pytest tests/ -v
-
-# Build the example docs
-pipenv run sphinx-build -b html docs docs/_build/html
+pipenv run sphinx-build docs public
 ```
+
+### With uv
+
+```bash
+git clone https://github.com/bngoy/sphinx-timeline.git
+cd sphinx-timeline
+uv sync --extra dev
+uv run pytest tests/ -v
+uv run sphinx-build docs public
+```
+
+### Linting
+
+```bash
+# Check
+pipenv run ruff check src tests
+
+# Fix automatically
+pipenv run ruff check src tests --fix
+pipenv run ruff format src tests
+```
+
+## Releasing a new version
+
+1. Update `VERSION` with the new version number
+2. Open a pull request — merging it will automatically tag the repository
+3. The tag push triggers the PyPI release workflow
 
 ## License
 
