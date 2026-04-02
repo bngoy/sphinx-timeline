@@ -8,8 +8,9 @@ sphinx-timeline = {editable = true, path = "."}
 
 [dev-packages]
 pytest = "*"
-pydata-sphinx-theme = "*"
-sphinx-book-theme = "*"
+ruff = "*"
+pydata-sphinx-theme = ">=0.16"
+sphinx-book-theme = ">=1.2"
 
 [requires]
 python_version = "3.11"
